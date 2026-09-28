@@ -55,7 +55,7 @@ VPC endpoints are the answer that satisfies the rule by design. The claims VPC h
 | Consume a partner's private API | **PrivateLink endpoint service** (internal NLB) plus a consumer interface endpoint | Exposes one service, not a network. No CIDR routing between the VPCs |
 | Prove it | Internet call fails, every service works, outside S3 access is denied, partner API is reached privately | Measured evidence rather than assurances |
 
-Long-form reasoning is in [`docs/adr/`](docs/adr). The architecture image is generated from [`docs/diagram/build_architecture.py`](docs/diagram/build_architecture.py), so it can be rebuilt instead of hand-edited.
+Long-form reasoning is in [`docs/adr/`](docs/adr). The architecture diagram uses the **official AWS Architecture Icons** and is generated from [`docs/diagram/build_architecture.py`](docs/diagram/build_architecture.py), so it can be rebuilt instead of hand-edited. The icon pack itself isn't committed: AWS licenses it for diagrams, not redistribution. Point `AWS_ICONS_DIR` at your own download to regenerate.
 
 ---
 
@@ -136,8 +136,8 @@ Removing the internet path and gating every service call through a private, poli
 ├── bucket-vpce-lock.json   # the aws:SourceVpce data lock, scoped to object actions (teardown-safe)
 ├── api-userdata.sh         # partner pricing-API stub (systemd service)
 └── docs/
-    ├── architecture.png / architecture.svg   # AWS-style architecture diagram
-    ├── diagram/build_architecture.py          # regenerates the diagram
+    ├── architecture.png / architecture.svg   # architecture diagram (official AWS Architecture Icons)
+    ├── diagram/                              # build_architecture.py + awsdiag.py helper (regenerates the diagram)
     ├── connectivity-proof.md     # no internet, every service works, SourceVpce lock, private DNS
     ├── privatelink-partner-api.md# producer (NLB + endpoint service) and consumer sides
     ├── debugging-journey.md      # the four real snags, including the self-lockout and the trap drill
